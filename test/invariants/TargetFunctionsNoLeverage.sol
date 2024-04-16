@@ -113,7 +113,7 @@ abstract contract TargetFunctionsNoLeverage is TargetFunctionsBase {
                 t(success, "Call shouldn't fail");
             }
         }
-
+        t(false, "Debug OpenCdpWithEth");
         _checkZR_01();
         _checkApproval(address(zapSender));
     }
@@ -179,7 +179,7 @@ abstract contract TargetFunctionsNoLeverage is TargetFunctionsBase {
                 t(success, "Call shouldn't fail");
             }
         }
-
+        t(false, "Debug OpenCdpWithWrappedEth");
         _checkZR_01();
         _checkApproval(address(zapSender));
     }
@@ -246,6 +246,7 @@ abstract contract TargetFunctionsNoLeverage is TargetFunctionsBase {
             }
         }
 
+        t(false, "Debug OpenCdpWithWstETH");
         _checkZR_01();
         _checkApproval(address(zapSender));
     }
@@ -287,6 +288,7 @@ abstract contract TargetFunctionsNoLeverage is TargetFunctionsBase {
 
         t(success, "Call shouldn't fail");
 
+        t(false, "Debug CloseCDP");
         _checkZR_01();
         _checkApproval(address(zapSender));
     }
@@ -370,6 +372,7 @@ abstract contract TargetFunctionsNoLeverage is TargetFunctionsBase {
             t(success, "Call shouldn't fail");
         }
 
+        t(false, "Debug AdjustCDP");
         _checkZR_01();
         _checkApproval(address(zapSender));
     }
@@ -453,6 +456,7 @@ abstract contract TargetFunctionsNoLeverage is TargetFunctionsBase {
             t(success, "Call shouldn't fail");
         }
 
+        t(false, "Debug AdjustCDPWithWETH");
         _checkZR_01();
         _checkApproval(address(zapSender));
     }
@@ -536,6 +540,7 @@ abstract contract TargetFunctionsNoLeverage is TargetFunctionsBase {
             t(success, "Call shouldn't fail");
         }
 
+        t(false, "Debug AdjustCDPWithWstETH");
         _checkZR_01();
         _checkApproval(address(zapSender));
     }
