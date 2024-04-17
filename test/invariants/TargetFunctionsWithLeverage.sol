@@ -127,6 +127,8 @@ abstract contract TargetFunctionsWithLeverage is TargetFunctionsBase {
             t(cr < borrowerOperations.MCR(), ZR_07);
         }
 
+        t(!success, "OpenCdp success");
+
         _checkApproval(address(leverageZapRouter));
     }
 
@@ -224,6 +226,8 @@ abstract contract TargetFunctionsWithLeverage is TargetFunctionsBase {
         );
         t(success, "Call shouldn't fail");
 
+        t(false, "CloseCdp");
+
         _checkApproval(address(leverageZapRouter));
     }
 
@@ -294,6 +298,8 @@ abstract contract TargetFunctionsWithLeverage is TargetFunctionsBase {
                 t(success, "Call shouldn't fail");
             }    
         }
+
+        t(false, "adjustCdp");
 
         _checkApproval(address(leverageZapRouter));
     }
