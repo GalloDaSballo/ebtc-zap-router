@@ -12,6 +12,10 @@ abstract contract ZapRouterProperties is
 {
     uint256 public constant MAX_COLL_ROUNDING_ERROR = 2;
 
+    function echidna_coverage_flag() public returns (bool) {
+        return cdpManager.getActiveCdpsCount() < 2;
+    }
+
     function echidna_ZR_01() public returns (bool) {
         return eBTCToken.balanceOf(address(zapRouter)) == 0;
     }
