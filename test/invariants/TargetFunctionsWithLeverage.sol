@@ -156,9 +156,11 @@ abstract contract TargetFunctionsWithLeverage is TargetFunctionsBase {
             zapActorKey
         );
 
+        /// @audit Use `encodeCall` so you get type safety
         return
-            abi.encodeWithSelector(
-                IEbtcLeverageZapRouter.openCdp.selector,
+            abi.encodeCall(
+                IEbtcLeverageZapRouter.openCdp,
+                (
                 _debt,
                 bytes32(0),
                 bytes32(0),
@@ -166,8 +168,18 @@ abstract contract TargetFunctionsWithLeverage is TargetFunctionsBase {
                 _marginAmount,
                 _totalAmount,
                 abi.encode(pmPermit),
-                _encodeOpenTrade(_debt)
+                _asTradeData(_debt)
+                )
             );
+    }
+
+    function _asTradeData(uint256 _debt) internal returns (IEbtcLeverageZapRouter.TradeData memory) {
+        /// @audit Add checks
+        return IEbtcLeverageZapRouter.TradeData({
+            exchangeData: _encodeOpenTrade(_debt),
+            expectedMinOut: 0,
+            performSwapChecks: false
+        });
     }
 
     function _encodeOpenTrade(uint256 _debt) internal returns (bytes memory) {
@@ -225,6 +237,11 @@ abstract contract TargetFunctionsWithLeverage is TargetFunctionsBase {
         t(success, "Call shouldn't fail");
 
         _checkApproval(address(leverageZapRouter));
+    }
+
+    function crytic_canary_open() public {
+        uint256 numberOfCdps = sortedCdps.cdpCountOf(address(zapSender));
+        t(numberOfCdps <= 1, "2 or more cdps");
     }
 
     function adjustCdp(
